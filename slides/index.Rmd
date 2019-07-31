@@ -1,0 +1,38 @@
+---
+title: "Highcharter<br>De principiante a experto!"
+subtitle: "LatinR Santiago 2019"
+author: "Joshua Kunst & Ignacio Rossi"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default", "metropolis", "metropolis-fonts", "assets/custom.css"]
+    nature:
+      ratio: "16:9"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+class: center, middle, inverse
+
+# Antes de Partir
+
+---
+
+# Antes de Partir
+
+Lorem 
+
+---
+
+# Ayuda
+
+
+Lorem
+

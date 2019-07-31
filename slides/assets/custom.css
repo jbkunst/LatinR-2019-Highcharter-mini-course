@@ -1,0 +1,34 @@
+.title-slide {
+  background-image: url("latinr.png"), url("highcharter.png");
+  background-size:  17%, 17%, cover;
+  /* background-position: 88% 16%, 67% 16%; */
+  background-position: 80% 16%, 69% 65%;
+  background-repeat: no-repeat;
+}
+
+.title-slide > h1,
+.title-slide > h2,
+.title-slide > h3 {
+  color: #fff;
+}
+
+p, ul > li {
+    font-size: 1.0em;
+}
+
+li {
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+}
+
+pre > b {
+    color: #112940; /* https://www.colorhexa.com/dba675 */
+}
+
+.inverse {
+    background-color: #75aadb;
+}
+
+.remark-slide-content {
+    border-top: 80px solid #75aadb;
+}
