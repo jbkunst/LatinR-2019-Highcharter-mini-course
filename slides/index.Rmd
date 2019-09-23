@@ -1,13 +1,15 @@
 ---
-title: "Highcharter<br>De principiante a experto!"
-subtitle: "LatinR Santiago 2019"
+title: "<code style='background:none;font-size:1.1em'>library(<strong>highcharter</strong>)</code><br>¡De principiante a experto!"
+subtitle: "Latin<strong>R</strong><br>Santiago, CL - Septiembre 2019"
 author: "Joshua Kunst & Ignacio Rossi"
 output:
   xaringan::moon_reader:
     lib_dir: libs
     css: ["default", "metropolis", "metropolis-fonts", "assets/custom.css"]
     nature:
-      ratio: "16:9"
+      # ratio: "16:9"
+      ratio: "4:3"
+      selfcontained: true
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
@@ -19,20 +21,96 @@ editor_options:
 options(htmltools.dir.version = FALSE)
 ```
 
-class: center, middle, inverse
+class: clear, center, middle, inverse
 
 # Antes de Partir
 
 ---
 
-# Antes de Partir
+# Antes de Partir 1
 
-Lorem 
+Para evitar errores usuales:
+
+
+- Siempre correr los scripts en orden: línea por línea
+
+--
+
+- ¡Sí! Comenzando por la primera
+
+--
+
+- En caso de <code style="color:red">Warning: ... </code>, es un
+warning no más, nada grave.
+
+--
+
+- En caso de <code style="color:red">Error ... </code>, leerlo con calma y en
+caso de no poder solucionarlo levantar la manto para ser socorrido
+
 
 ---
 
-# Ayuda
+# Antes de Partir 2: Los paquetes
+
+Necesitaremos de tidyverse: `dplyr` y `purrr` en algunos casos para
+manipulación de datos.
+
+```{r, message=FALSE, warning=FALSE}
+if(!require(tidyverse)) install.packages("tidyverse")
+if(!require(highcharter)) install.packages("highcharter")
+
+library(tidyverse)
+```
+
+```{r}
+# y lo más importante supongo :P
+library(highcharter)
+```
 
 
-Lorem
+---
+
+# Antes de Partir 3: Prueba de fuego
+
+```{r}
+highcharts_demo()
+```
+
+
+---
+
+class: clear, center, middle, inverse
+
+# Estructura de nuestro taller
+
+
+---
+
+# Estructura de nuestro taller
+
+<br>
+
+.font120[
+- ¿Por que la visualización? (y algunos tips que he aprendido [con errores])
+- Highcharts y `highcharter` 
+- Función `hchart`
+- ¡Ayuda! y documentación.
+- Siempre con **estilo**
+- Todo mejora con **tooltips**
+- Mapas
+- Integración con `shiny` y `rmarkdown`
+- Esto no termina aquí: ¡Otros **htmlwidgets**!
+]
+
+---
+
+class: clear, middle, inverse
+background-image: url("img/dataviz2.png")
+
+# ¿Por que<br>visualización?
+
+
+
+
 
