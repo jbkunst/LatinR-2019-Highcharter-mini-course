@@ -26,7 +26,6 @@ body {
   font-weight: 300;
 }
 
-
 .title-slide {
   background-image: url("latinr.png"), url("highcharter.png");
   background-size:  17%, 17%, cover;
@@ -43,22 +42,30 @@ body {
   color: #fff;
 }
 
-p, ul > li {
-    font-size: 1.0em;
+/* p, */
+ul > li {
+    font-size: 1.2em;
+}
+
+ul {
+  padding-top: 2em;
 }
 
 li {
-    padding-top: 0.2em;
-    padding-bottom: 0.2em;
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
 }
 
 pre > b {
     color: #112940; /* https://www.colorhexa.com/dba675 */
 }
 
-
 .inverse {
   background-color: #47475C;
+}
+
+.inverse > h1 {
+  color: white;
 }
 
 .remark-slide-content {
@@ -66,5 +73,5 @@ pre > b {
 }
 
 .clear {
-    border-top: 0px solid #FAFAFA;
+  border-top: 0px solid #FAFAFA;
 }
