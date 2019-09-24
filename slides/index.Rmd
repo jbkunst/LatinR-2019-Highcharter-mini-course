@@ -34,7 +34,7 @@ background-size: cover
 
 - Descargar el proyecto R-Studio https://bit.ly/2kGGltk (comprimido)
 - Descomprimir, yay!
-- Abrir el proyecto
+- Abrir el proyecto: doble click en el archivo `LatinR-2019-Highcharter-taller.Rproj`
 - Códigos y ejercicios en carpeta `R`
 - Slides en la ruta `slides/index.html` o versión online de las 
 slides en http://jkunst.com/LatinR-2019-Highcharter-taller/slides/ 
@@ -49,6 +49,10 @@ slides en http://jkunst.com/LatinR-2019-Highcharter-taller/slides/
 - ¡Sí! Comenzando por la primera
 - En caso de <code style="color:red">Warning: ... </code>, es un
 warning no más, nada grave.
+- En caso de <code style="color:red">Error ... </code>, leerlo con calma y en
+caso de no poder solucionarlo levantar la manto para ser socorrido
+- En caso de <code style="color:red">Error ... </code>, leerlo con calma y en
+caso de no poder solucionarlo levantar la manto para ser socorrido
 - En caso de <code style="color:red">Error ... </code>, leerlo con calma y en
 caso de no poder solucionarlo levantar la manto para ser socorrido
 
@@ -133,6 +137,53 @@ background-size: cover
 
 ---
 
+# ¿Alguien entiende?
+
+¿Cuál es el mensaje/propósito?
+
+```{r, echo=FALSE}
+x <- sample(LETTERS, size = 10000, prob = seq_along(LETTERS), replace = TRUE)
+hchart(x, type = "pie", names = "letras") %>% 
+  hc_title(text = "Letras") %>% 
+  hc_subtitle(text = "Letras del abecedario") %>% 
+  hc_add_theme(hc_theme_ffx())
+```
+
+---
+
+# La vasualización
+
+- Lleva información, es un mensaje
+- Ejercicio mental para interpretar o _decodificar_(!!) información
+- No siempre es el fin
+- Herramienta exploratoria
+- Distintas visualizaciones en mismos datos / Distintas historias
+
+---
+
+# Detalles que importan
+
+- Tipo de gráfico (https://blog.datawrapper.de/area-charts/)
+- Colores (https://blog.datawrapper.de/colors/)
+- Legendas y ejes (https://blog.datawrapper.de/dualaxis/)
+- Tipografía
+
+
+Mi humilde recomendación con mucho cariño y respeto https://blog.datawrapper.de/category/thoughts-how-to-s/; 
+[Lisa Charlotte Rost](https://twitter.com/lisacrost)
+
+---
+
+# Errores que no hay que imitar
+
+- https://twitter.com/CedScherer/status/1176163029681102848
+
+- https://twitter.com/lizardbill/status/1127005323636686848/photo/1
+
+
+
+---
+
 class: clear, center, middle, inverse
 background-image: url("img/hc.gif")
 background-size: cover
@@ -189,7 +240,6 @@ options(highcharter.theme = hc_theme_ggplot2())
 Más variedad en http://jkunst.com/highcharts-themes-collection/
 
 
-
 ---
 
 # Datos a probar
@@ -203,7 +253,7 @@ diamantes
 # Variables numéricas
 
 ```{r}
-hchart(diamantes$precio, name = "Precio")
+hchart(diamantes$precio, name = "Precio") # Pruebe el zoom!
 ```
 
 ---
@@ -251,20 +301,27 @@ class: clear, center
 
 # Tiempo de _codear_
 
+.font150[
+<br>
+
 ¡Ahora usted!
 
 Revisemos el archivo `R/01-hchart.R`
+]
+
+
 
 ---
 
 # hchart en data frames
 
-- El caso de data frame es particular
-- Pues en una data frame (tabla) pueden existir varias columnas las cuales
+El caso de data frame es particular:
+
+- En una data frame (tabla) pueden existir varias columnas las cuales
 querríamos representar o no visualmente en un gráfico
-- Por lo que debemos _hacer el esfuerzo_ de mencionar comos queremos
-_mapear_ las variables (y que variables) 
-- Y obviamente mencionar el tipo de representación (tipo de gráfico)
+- Debemos _hacer el esfuerzo_ de mencionar comos queremos
+_mapear_ (¡¿KHÉ?!) las variables; y que variables
+- Y obviamente mencionar el tipo de representación -tipo de gráfico-
 a usar.
 - En data frames `hchart` funciona relativamente parecido a `ggplot2`
 
@@ -272,13 +329,22 @@ a usar.
 
 # ¿Qué es esto de _mapear_?
 
-Por ejemplo para graficar un punto debemos decirle a `R` la posición `x`, `y` y 
-tamaño si quisiéramos:
+Por ejemplo para graficar un puntos debemos decirle a `R` la posición `x`, `y` y 
+tamaño si quisiéramos para cada punto:
 
 .center[![](img/4_bubble-chart_mapping-vars.png)]
 
 https://www.sharpsightlabs.com/blog/r-package-think-about-visualization/
 https://rpubs.com/JoanClaverol/405488
+
+---
+
+# Datos a utilizar
+
+```{r}
+millas
+```
+
 
 ---
 
@@ -293,11 +359,93 @@ hchart(millas, "point", hcaes(x = ciudad, y = autopista, group = clase))
 
 # Tiempo de _codear_ nuevamente
 
-¿De nuevo? Buuu!
+.font150[
+<br>
+
+¿De nuevo? Yay!/Buuu!
 
 Revisemos el archivo `R/02-dataframes.R`
+]
+
 
 ---
+
+class: clear, center, middle, inverse
+background-image: url("img/panel.jpg")
+background-size: cover
+
+# Opciones y Documentación 
+
+---
+
+# ¡Parámetros para todes!
+
+- HighchartsJS (y entonces `highcharter`) tienens _muuuuchas_ opciones 
+- Existe al menos un ejemplo para cada opción/parámetro
+- Referencia https://api.highcharts.com/highcharts/
+
+![](img/docs.png)
+
+---
+
+# Ejemplo: De esto
+
+```{r, echo=FALSE}
+data(citytemp)
+
+citytemp_long <- citytemp %>% 
+  gather(city, temp, -month) %>% 
+  mutate(month = factor(month, month.abb))
+
+hc <- hchart(citytemp_long, "line", hcaes(month, temp, group = city))
+hc
+```
+
+---
+
+# Ejemplo: A esto
+
+```{r, echo=FALSE}
+hc2 <- hc %>% 
+  hc_title(text = "Mi zuperderduper gráfico") %>% 
+  hc_credits(enabled = TRUE, text = "Este grafico es serio porque tiene <b>caption<b>", useHTML = TRUE) %>% 
+  hc_chart(zoomType = "xy") %>% 
+  hc_xAxis(
+    title = list(text = "Meses en el eje x"),
+    plotLines = list(list(
+      label = list(text = "Esto es una plotLine", verticalAlign = "bottom", textAlign = "right", y = -5),
+      color = "#FF0000", width = 2, value = 5.5
+    ))
+    ) %>% 
+  hc_yAxis(
+    title = list(text = "Temperatura en el eje y"),
+    opposite = TRUE,
+    plotBands = list(list(
+      from = 25, to = 80, color = "rgba(100, 0, 0, 0.1)",
+      label = list(align = "right", textAlign = "right", x = -10, text = "Esto es una plotBand")
+    ))
+    ) %>%
+    hc_annotations(
+    list(
+      labels = list(
+        list(point = list(x = 7, y = 26.5, xAxis = 0, yAxis = 0), text = "Mucho calor oe"))
+    )) %>% 
+    hc_legend(verticalAlign = "top") %>%
+  # hc_mapNavigation(enabled = TRUE) %>% 
+  hc_exporting(enabled = TRUE) # "exporting option" :)
+
+hc2
+```
+
+
+---
+
+# ¡¿Cómo usarlas?!
+
+- Hay configuraciones para eje x, eje y, titulo, subtitulo, 
+- Cada una se accede con la función `hc_algo`, por ejemplo, para titulos `hc_title`
+- Ya las descubriremos
+- 
 
 ---
 
