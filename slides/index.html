@@ -70,27 +70,35 @@ class: clear, center, middle, inverse
 
 ---
 
+# Antes de Partir 1: Como seguir el taller
+
+.font120[
+&lt;br&gt;
+
+- Descargar zip https://bit.ly/2kGGltk
+- Descomprimir :D
+- Abrir el proyecto
+- Slides en la ruta `slides/index.html` o versión online de las 
+slides en http://jkunst.com/LatinR-2019-Highcharter-taller/slides/ 
+- Códigos y ejercicios en carpeta `R`
+
+]
+
+
+---
+
 # Antes de Partir 1
 
+.font120[
 Para evitar errores usuales:
 
-
 - Siempre correr los scripts en orden: línea por línea
-
---
-
 - ¡Sí! Comenzando por la primera
-
---
-
 - En caso de &lt;code style="color:red"&gt;Warning: ... &lt;/code&gt;, es un
 warning no más, nada grave.
-
---
-
 - En caso de &lt;code style="color:red"&gt;Error ... &lt;/code&gt;, leerlo con calma y en
 caso de no poder solucionarlo levantar la manto para ser socorrido
-
+]
 
 ---
 
@@ -101,14 +109,17 @@ manipulación de datos.
 
 
 ```r
-if(!require(tidyverse)) install.packages("tidyverse")
-if(!require(highcharter)) install.packages("highcharter")
+if(!require(tidyverse))       install.packages("tidyverse")
+if(!require(datos))           install.packages("datos")
+if(!require(tradestatistics)) install.packages("tradestatistics")
+if(!require(highcharter))     install.packages("highcharter")
 
 library(tidyverse)
-```
+library(datos)
+library(tradestatistics)
+library(datos)
 
 
-```r
 # y lo más importante supongo :P
 library(highcharter)
 ```
@@ -123,8 +134,8 @@ library(highcharter)
 highcharts_demo()
 ```
 
-<div id="htmlwidget-a0f18c869e1e3a28ef15" style="width:100%;height:500px;" class="highchart html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a0f18c869e1e3a28ef15">{"x":{"hc_opts":{"title":{"text":"Monthly Average Temperature"},"yAxis":{"title":{"text":"Temperature"}},"credits":{"enabled":false},"exporting":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0},"treemap":{"layoutAlgorithm":"squarified"}},"subtitle":{"text":"Source: WorldClimate.com"},"xAxis":{"title":{"text":"Months"},"categories":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]},"series":[{"data":[7,6.9,9.5,14.5,18.2,21.5,25.2,26.5,23.3,18.3,13.9,9.6],"name":"Tokyo"},{"data":[3.9,4.2,5.7,8.5,11.9,15.2,17,16.6,14.2,10.3,6.6,4.8],"name":"London"},{"data":[-0.9,0.6,3.5,8.4,13.5,17,18.6,17.9,14.3,9,3.9,1],"name":"Berlin"}]},"theme":{"chart":{"backgroundColor":"transparent"}},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-f2825f0e751a84038ccc" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f2825f0e751a84038ccc">{"x":{"hc_opts":{"title":{"text":"Monthly Average Temperature"},"yAxis":{"title":{"text":"Temperature"}},"credits":{"enabled":false},"exporting":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0},"treemap":{"layoutAlgorithm":"squarified"}},"subtitle":{"text":"Source: WorldClimate.com"},"xAxis":{"title":{"text":"Months"},"categories":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]},"series":[{"data":[7,6.9,9.5,14.5,18.2,21.5,25.2,26.5,23.3,18.3,13.9,9.6],"name":"Tokyo"},{"data":[3.9,4.2,5.7,8.5,11.9,15.2,17,16.6,14.2,10.3,6.6,4.8],"name":"London"},{"data":[-0.9,0.6,3.5,8.4,13.5,17,18.6,17.9,14.3,9,3.9,1],"name":"Berlin"}]},"theme":{"chart":{"backgroundColor":"transparent"}},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
 
 
 ---
@@ -144,12 +155,12 @@ class: clear, center, middle, inverse
 - ¿Por que la visualización? (y algunos tips que he aprendido [con errores])
 - Highcharts y `highcharter` 
 - Función `hchart`
-- ¡Ayuda! y documentación.
-- Siempre con **estilo**
-- Todo mejora con **tooltips**
+- ¡Ayuda! y documentación
+- Siempre con estilo
+- Todo mejora con tooltips
 - Mapas
 - Integración con `shiny` y `rmarkdown`
-- Esto no termina aquí: ¡Otros **htmlwidgets**!
+- Esto no termina aquí: ¡Otros htmlwidgets!
 ]
 
 ---
@@ -157,7 +168,54 @@ class: clear, center, middle, inverse
 class: clear, middle, inverse
 background-image: url("img/dataviz2.png")
 
-# ¿Por que&lt;br&gt;visualización?
+# ¿Por qué&lt;br&gt;visualización?
+
+---
+
+background-image: url("img/chn.png")
+background-size: normal
+
+# ¿Alguien entiende?
+
+---
+
+background-image: url("img/russianr4ds.jpg")
+background-size: cover
+
+# Lenguaje común
+
+
+---
+
+class: clear, center, middle, inverse
+background-image: url("img/hc.gif")
+background-size: cover
+
+# &lt;span id="brand"&gt;h|1i|0g|3h|2c|1h|2a|1r|3t|2e|1r&lt;/span&gt;
+
+---
+
+# HighchartsJS &amp; Highcharter
+
+- HighchartsJS es una librería javascript (como plotly, apexcharts, eCharts)
+- HighchartsJS es una librería madura, lleva tiempo
+- Highcharter es apenas un _wrapper_ de R para highcharts...
+- Es decir poder usar highchartsJS desde R sin saber _necesariamente_ javascript
+- ...más algunas funcionalidades
+
+
+https://www.highcharts.com/demo
+
+![](img/highcharts.png)
+
+
+---
+
+class: clear, center, inverse
+background-image: url("img/magic.jpg")
+background-size: cover
+
+# dfsadfsd fasdfsadf
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -206,7 +264,24 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 (function() {

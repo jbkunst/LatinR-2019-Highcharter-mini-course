@@ -1,8 +1,37 @@
+@font-face {
+  font-family: 'Datalegreya-Gradient';
+  src: url('http://cdn.rawgit.com/figs-lab/datalegreya/master/font-files/Datalegreya-Gradient.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* for Datalegreya */
+body {
+  background-color: #FAFAFA;
+  -webkit-font-feature-settings: 'kern' on, 'liga' on, 'calt' on;
+  -moz-font-feature-settings: 'kern' on, 'liga' on, 'calt' on;
+  -webkit-font-feature-settings: 'kern' on, 'liga' on, 'calt' on;
+  -ms-font-feature-settings: 'kern' on, 'liga' on, 'calt' on;
+  font-feature-settings: 'kern' on, 'liga' on, 'calt' on;
+  font-variant-ligatures: common-ligatures discretionary-ligatures contextual;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* for Datalegreya */
+#brand {
+  font-family: 'Datalegreya-Gradient', sans-serif;
+  font-size: 2.0em;
+  font-weight: 300;
+}
+
+
 .title-slide {
   background-image: url("latinr.png"), url("highcharter.png");
   background-size:  17%, 17%, cover;
   /* 4:3 */
-  background-position: 88% 16%, 77% 48%;
+  background-position: 80% 0%, 90% 32%;
   /* 16:9 */
   /* background-position: 80% 16%, 69% 65%;*/
   background-repeat: no-repeat;
