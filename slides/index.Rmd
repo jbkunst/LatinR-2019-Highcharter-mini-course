@@ -143,7 +143,7 @@ class: clear, center, middle, inverse
 background-image: url("img/hc.gif")
 background-size: cover
 
-# <span id="brand">h|1i|0g|3h|2c|1h|2a|1r|3t|2e|1r</span>
+# hc <!-- <span id="brand">h|1i|0g|3h|2c|1h|2a|1r|3t|2e|1r</span> -->
 
 ---
 
@@ -160,12 +160,17 @@ https://www.highcharts.com/demo
 
 ![](img/highcharts.png)
 
-
 ---
 
-class: clear, center, inverse
+class: clear, center, middle, inverse
 background-image: url("img/magic.jpg")
 background-size: cover
 
 # dfsadfsd fasdfsadf
 
+
+---
+
+# hchart
+
+- jn
