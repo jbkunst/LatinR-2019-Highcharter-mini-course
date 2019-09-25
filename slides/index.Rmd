@@ -68,6 +68,7 @@ manipulación de datos y datos.
 ```{r, message=FALSE, warning=FALSE}
 if(!require(tidyverse))       install.packages("tidyverse")
 if(!require(datos))           install.packages("datos")
+if(!require(gapminder))       install.packages("gapminder")
 if(!require(tradestatistics)) install.packages("tradestatistics")
 if(!require(highcharter))     install.packages("highcharter")
 
@@ -278,7 +279,7 @@ hchart(AirPassengers, showInLegend = FALSE, name = "Pasajeros")
 # Matrices (correlaciones o distancias)
 
 ```{r}
-corcar <- cor(tibble::column_to_rownames(datos::mtautos, "modelo"))
+corcar <- cor(datos::mtautos)
 hchart(corcar)
 ```
 
