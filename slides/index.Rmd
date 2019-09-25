@@ -151,7 +151,7 @@ hchart(x, type = "pie", names = "letras") %>%
 
 ---
 
-# La vasualización
+# La visualización
 
 - Lleva información, es un mensaje
 - Ejercicio mental para interpretar o _decodificar_(!!) información
