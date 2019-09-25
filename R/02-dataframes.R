@@ -68,13 +68,7 @@ highchart() %>%
   hc_add_series(dados_cyl_4, "line", hcaes(mpg, disp), color = "blue", name = "cyl4")
 
 # 
-# Mas mejor: group
-# 
-highchart() %>% 
-  hc_add_series(mtcars, "scatter", hcaes(mpg, disp, group = cyl)) 
-
-# 
-# o usand hchart :)
+# Mas mejor usando hchart :)
 # 
 hchart(mtcars, type = "scatter", mapping = hcaes(mpg, disp, group = cyl)) 
 
@@ -114,6 +108,29 @@ hchart(fit, "arearange", hcaes(x = mpg, low = low_fit, high = high_fit),
        color = hex_to_rgba("gray", 0.01), name = "confidence")
 
 
+
+# otros tipos de gráficos -------------------------------------------------
+millasc <- millas %>% 
+  count(clase)
+
+
+# 
+# forma explìcita:
+# 
+hchart(
+  object = millasc,
+  type = "line",
+  hcaes(x = clase, y = n)
+  )
+
+hchart(millasc, "line", hcaes(x = clase, y = n), name = "Clases")
+
+hchart(millasc, "column", hcaes(x = clase, y = n), color = "darkblue")
+
+hchart(millasc, "bar", hcaes(x = clase, y = n), pointWidth = 1)
+
+
+
 # Exercícios --------------------------------------------------------------
 # 
 # 1. Con los siguientes datos, para los datos `flores` o  `iris`
@@ -126,6 +143,21 @@ iris
 # 
 
 # 
-# 3. 
+# 3. Usando los ejemplos, use el tipo "pie"
 # 
+
+
+# 
+# 4. Usando los ejemplos, use el tipo "treemap". La diferencia es que en lugar
+#    de "y" se deb usar "value"
+# 
+
+
+#
+# 5. Con los datos "paises":
+#   - Selecciones los registros del último año disponible
+#   - Con la tabla anterior genere un grafico de puntos donde muestre la relacion
+#     entre pib per capita y la esperanza de vida. Ademàs considere el tamaño del punto
+#     como la poblaciòn del pais, y agrupe por contiente
+#   - Comenta que observas
 

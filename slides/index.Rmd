@@ -72,8 +72,6 @@ if(!require(highcharter))     install.packages("highcharter")
 library(tidyverse)
 library(datos)
 library(tradestatistics)
-library(datos)
-
 
 # y lo más importante supongo :P
 library(highcharter)
@@ -106,8 +104,8 @@ background-size: cover
 - Highcharts y `highcharter` 
 - Función `hchart`
 - ¡Ayuda! y documentación
-- Siempre con estilo
-- Todo mejora con tooltips
+- Siempre con estilo y tipos de gráficos
+- Todo mejora con tooltips, en particular la lectura
 - Mapas
 - Integración con `shiny` y `rmarkdown`
 - Esto no termina aquí: ¡Otros htmlwidgets!
@@ -442,14 +440,350 @@ hc2
 
 # ¡¿Cómo usarlas?!
 
-- Hay configuraciones para eje x, eje y, titulo, subtitulo, 
-- Cada una se accede con la función `hc_algo`, por ejemplo, para titulos `hc_title`
+- Hay configuraciones para eje x, eje y, leyendas, titulo, subtitulo, ver (nuevamente toooodas las opciones) en  https://api.highcharts.com/highcharts/
+- Desde `R` cada una se accede con el prefijo `hc_`, por ejemplo, para titulos `hc_title`, para eje x (xAxis) `hc_xAxis`
 - Ya las descubriremos
-- 
+- Mientras un buen post del amigo Danton Noriega  https://dantonnoriega.github.io/ultinomics.org/post/2017-04-05-highcharter-explainer.html
 
 ---
 
-# Créditos imágenes
+# Hora de _codear_ y testear las opciones
+
+.font150[
+<br>
+
+¿Qué archivo es ahora?
+
+Revisemos el archivo `R/03-highcharts-api-options.R` y las opciones más relevantes
+]
+
+---
+
+class: clear, middle, right
+background-image: url("img/style.png")
+background-size: cover
+
+# Flexibilidad<br>y Estilo
+
+---
+
+# Estilo 
+
+- A veces es bueno dar contexto o enfatizarlo
+- Como vimos antes, la flexibilidad de highcharts es inmensa
+- `highcharter` tiene incluído algunos temas (http://jkunst.com/highcharts-themes-collection)
+- `highcharter` tambien tiene la funcionalidad de obtener fuentes de font.google.com
+
+---
+
+# ggplot2
+
+```{r}
+hc_add_theme(hc, hc_theme_ggplot2())
+```
+
+---
+
+# Financial times 
+
+```{r}
+hc_add_theme(hc, hc_theme_ft())
+```
+
+---
+
+# Flatdark 
+
+```{r}
+hc_add_theme(hc, hc_theme_flatdark())
+```
+
+---
+
+# O modificar/crear un tema
+
+```{r}
+hc_theme_terror <- function(...){
+  
+  theme <- 
+    list(
+      colors = c("#A9CF54", "#C23C2A", "white", "#979797", "#FBB829"),
+      chart = list(  
+        style = list(fontFamily = "Amatic SC", fontSize = "0.8em", color = "white"),
+        backgroundColor = "#2e0504"
+      ),
+      legend = list(
+        enabled = TRUE,
+        align = "right",
+        verticalAlign = "bottom",
+        itemStyle = list(  
+          color = "white",
+          fontSize = "1.1em"
+        ),
+        itemHoverStyle = list(  
+          color = "#C0C0C0"
+        ),
+        itemHiddenStyle = list(
+          color = "#444444"
+        )
+      ),
+      title = list(
+        text = NULL,
+        style = list(
+          color = "red",
+          fontSize = "1.5em",
+          fontFamily = "Creepster"
+        )
+      ),
+      tooltip = list(
+        backgroundColor = "#1C242D",
+        borderColor = "#1C242D",
+        borderWidth = 1,
+        borderRadius = 0,
+        style = list(
+          color = "white"
+        )
+      ),
+      subtitle = list(  
+        style = list(  
+          color = "white",
+          fontSize = "1.2em"
+        )
+      ),
+      xAxis = list(  
+        gridLineColor = "#946b6a",
+        gridLineWidth = 1,
+        labels = list(  
+          style = list(  
+            color = "white"
+          )
+        ),
+        lineColor = "#946b6a",
+        tickColor = "#946b6a",
+        title = list(
+          style = list(
+            color = "white"
+          ),
+          text = NULL
+        )
+      ),
+      yAxis = list(  
+        gridLineColor = "#946b6a",
+        gridLineWidth = 1,
+        labels = list(  
+          style = list(  
+            color = "#white"
+          ),
+          lineColor = "#946b6a",
+          tickColor = "#946b6a",
+          title = list(  
+            style = list(  
+              color = "white"
+            ),
+            text = NULL
+          )
+        )
+      )
+    )
+  
+  theme <- structure(theme, class = "hc_theme")
+  
+  if (length(list(...)) > 0) {
+    theme <- hc_theme_merge(
+      theme,
+      hc_theme(...)
+    )
+  } 
+  
+  theme
+  
+}
+```
+
+---
+
+# O modificar/crear un tema
+
+```{r, echo=FALSE}
+hc %>% 
+  hc_add_theme(hc_theme_terror()) %>%
+  hc_title(text = "Grafica tus datos de Miedo") %>% 
+  hc_subtitle(text = "Obviamente pudes (ab)usar de esto")
+```
+
+---
+
+# Hora de CTRL+R y testear los temas
+
+.font150[
+<br>
+
+Revisemos el archivo `R/04-customization-themes.R`
+]
+
+---
+
+# Flexibilidad 
+
+HighchartsJS (y entonces `highcharter`) tienen muchos tipos de representar datos
+
+- Los clásicos: pie, column, point
+- streamgraphs, sankey 
+- pucketbubbles, items list
+- funnel, waterfall, pyramid, wordclouds
+- y más...
+- Algunas referencias http://jkunst.com/highcharter/highcharts.html y 
+https://www.highcharts.com/demo
+- Faltan algunas actualizaciones en highcharter para soportar algunos tipos de gráficos (estamos trabajando para usted)
+
+---
+
+# Ya es tiempo de 
+
+.font150[
+<br>
+Replicar unos buenos ejemplos!
+
+Revisemos el archivo `R/05-chart-types.R`
+]
+
+
+---
+
+class: clear, middle, left
+background-image: url("img/tooltip.jpg")
+background-size: cover
+
+---
+
+# Tooltips
+
+- Buen recurso para no saturar de información un gráfico con información
+- Permite dar detalle que el _usuario_ decide ver
+- (Y son bknes porque a mi me gustan)
+
+
+---
+
+# Comparemos esto
+
+```{r}
+hc
+```
+
+---
+
+# Con
+
+```{r}
+hc %>% hc_tooltip(split = TRUE)
+```
+
+
+---
+
+# Y quizàs, tal vez con
+
+```{r}
+hc %>% hc_tooltip(table = TRUE, sort = TRUE)
+```
+
+---
+
+# Algo más entretenido
+
+`tooltip_table`
+
+```{r, echo=FALSE}
+paises2 <- paises %>% 
+  filter(max(anio) == anio)
+
+hcpaises <- hchart(
+  paises2,
+  "point",
+  hcaes(pib_per_capita, esperanza_de_vida, z = poblacion, group = continente)
+  ) %>% 
+  hc_xAxis(type = "logarithmic")
+
+x <- c("pais", "pib_per_capita", "esperanza_de_vida", "poblacion")
+y <- str_c("{point.", x, "}")
+x <- str_replace_all(x, "_", " ")
+
+tt <- tooltip_table(x, y)
+
+hcpaises <- hcpaises %>% 
+  hc_tooltip(pointFormat = tt, useHTML = TRUE, headerFormat = "")
+
+hcpaises
+```
+
+---
+
+# Algo más más entretenido
+
+`tooltip_chart` 
+
+```{r, echo=FALSE}
+paises3 <- paises %>% 
+  select(pais, x = anio, y = esperanza_de_vida) %>% 
+  nest(-pais) %>% 
+  rename(ttdata = data) %>% 
+  mutate(ttdata = map(ttdata, list_parse))
+  
+paises2 <- left_join(paises2, paises3, by = "pais")
+
+ttchart <- tooltip_chart("ttdata", width = 350, height = 250)
+
+hcpaises3 <- hchart(
+  paises2, "point",
+  hcaes(pib_per_capita, esperanza_de_vida,  z = poblacion, group = continente, name = pais)
+  ) %>% 
+  hc_tooltip(
+    headerFormat = "<b>{point.key}</b>",
+    pointFormatter = ttchart, useHTML = TRUE
+    ) %>% 
+  hc_plotOptions(series = list(maxSize = 30)) %>% 
+  hc_xAxis(type = "logarithmic")
+
+hcpaises3
+```
+
+---
+
+# Otros ejemplos
+
+
+- http://jkunst.com/slides/201906-Highcharter-en-30-minutos-o-menos-o-m%C3%A1s/index.html#/section-1
+
+- http://jkunst.com/blog/posts/2019-02-04-using-tooltips-in-unexpected-ways/
+
+- http://jkunst.com/blog/posts/2017-03-03-giving-a-thematic-touch-to-your-interactive-chart
+
+- http://jkunst.com/flexdashboard-highcharter-examples/pokemon/
+
+
+---
+
+# Toooltips!
+
+.font150[
+<br>
+
+Revisemos el archivo `R/06-tooltip.R`
+]
+
+
+
+
+---
+
+# Créditos 
+
+## Logo
+
+Mauricio @pacha Vargas
+
+## Imágenes
 
 https://500px.com/photo/43752970/Mount-Fitzroy-at-sunset-by-Jimmy-Mcintyre
 
