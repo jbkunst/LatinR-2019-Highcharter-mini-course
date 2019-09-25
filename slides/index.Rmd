@@ -19,6 +19,7 @@ editor_options:
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```
 
 class: clear, right, bottom
@@ -39,6 +40,7 @@ background-size: cover
 - Slides en la ruta `slides/index.html` o versión online de las 
 slides en http://jkunst.com/LatinR-2019-Highcharter-taller/slides/ 
 - En las slides lo que aparezca de `esta forma` indica que es código (generalmente)
+- Internet: 1) eduroam 2) red UC_CentroExtension Password plaza.2020
 
 ---
 
@@ -61,7 +63,7 @@ caso de no poder solucionarlo levantar la manto para ser socorrido
 # Los paquetes
 
 Necesitaremos de tidyverse: `dplyr` y `purrr` en algunos casos para
-manipulación de datos.
+manipulación de datos y datos.
 
 ```{r, message=FALSE, warning=FALSE}
 if(!require(tidyverse))       install.packages("tidyverse")
@@ -340,13 +342,13 @@ https://rpubs.com/JoanClaverol/405488
 # Datos a utilizar
 
 ```{r}
-millas
+glimpse(millas)
 ```
 
 
 ---
 
-# Devuelta a hchart
+# De vuelta a hchart
 
 ```{r}
 hchart(millas, "point", hcaes(x = ciudad, y = autopista, group = clase))
@@ -442,8 +444,10 @@ hc2
 
 - Hay configuraciones para eje x, eje y, leyendas, titulo, subtitulo, ver (nuevamente toooodas las opciones) en  https://api.highcharts.com/highcharts/
 - Desde `R` cada una se accede con el prefijo `hc_`, por ejemplo, para titulos `hc_title`, para eje x (xAxis) `hc_xAxis`
-- Ya las descubriremos
-- Mientras un buen post del amigo Danton Noriega  https://dantonnoriega.github.io/ultinomics.org/post/2017-04-05-highcharter-explainer.html
+- Ya las descubriremos: cuales son y como usarlas
+- Mientras un buen post del amigo Danton Noriega  https://dantonnoriega.github.io/ultinomics.org/post/2017-04-05-highcharter-explainer.html:
+
+> ... The key to building any plot in highcharter is understanding how to build a series in R and how it relates to the structure of a series in Highcharts. (@dantonnoriega)
 
 ---
 
@@ -470,16 +474,16 @@ background-size: cover
 # Estilo 
 
 - A veces es bueno dar contexto o enfatizarlo
-- Como vimos antes, la flexibilidad de highcharts es inmensa
+- Como vimos antes, la flexibilidad de highcharts en los demos es inmensa
 - `highcharter` tiene incluído algunos temas (http://jkunst.com/highcharts-themes-collection)
-- `highcharter` tambien tiene la funcionalidad de obtener fuentes de font.google.com
+- `highcharter` tambien tiene la funcionalidad de obtener fuentes de https://fonts.google.com/
 
 ---
 
 # ggplot2
 
 ```{r}
-hc_add_theme(hc, hc_theme_ggplot2())
+hc %>% hc_add_theme(hc_theme_ggplot2())
 ```
 
 ---
@@ -487,7 +491,7 @@ hc_add_theme(hc, hc_theme_ggplot2())
 # Financial times 
 
 ```{r}
-hc_add_theme(hc, hc_theme_ft())
+hc %>% hc_add_theme(hc_theme_ft())
 ```
 
 ---
@@ -495,7 +499,7 @@ hc_add_theme(hc, hc_theme_ft())
 # Flatdark 
 
 ```{r}
-hc_add_theme(hc, hc_theme_flatdark())
+hc %>% hc_add_theme(hc_theme_flatdark())
 ```
 
 ---
@@ -604,11 +608,19 @@ hc_theme_terror <- function(...){
 
 # O modificar/crear un tema
 
-```{r, echo=FALSE}
-hc %>% 
+```{r}
+hcterror <- hc %>% 
   hc_add_theme(hc_theme_terror()) %>%
   hc_title(text = "Grafica tus datos de Miedo") %>% 
   hc_subtitle(text = "Obviamente pudes (ab)usar de esto")
+```
+
+---
+
+# O modificar/crear un tema
+
+```{r}
+hcterror
 ```
 
 ---
@@ -625,20 +637,20 @@ Revisemos el archivo `R/04-customization-themes.R`
 
 # Flexibilidad 
 
-HighchartsJS (y entonces `highcharter`) tienen muchos tipos de representar datos
-
+- HighchartsJS (y entonces `highcharter`) tienen muchos tipos de representar datos
 - Los clásicos: pie, column, point
 - streamgraphs, sankey 
 - pucketbubbles, items list
 - funnel, waterfall, pyramid, wordclouds
-- y más...
+- Faltan algunas actualizaciones en highcharter para soportar algunos tipos de gráficos (estamos trabajando para usted)
+y nuevas opciones que van apareciendo
 - Algunas referencias http://jkunst.com/highcharter/highcharts.html y 
 https://www.highcharts.com/demo
-- Faltan algunas actualizaciones en highcharter para soportar algunos tipos de gráficos (estamos trabajando para usted)
+
 
 ---
 
-# Ya es tiempo de 
+# Ya es tiempo de...
 
 .font150[
 <br>
@@ -652,11 +664,13 @@ Revisemos el archivo `R/05-chart-types.R`
 
 class: clear, middle, left
 background-image: url("img/tooltip.jpg")
-background-size: cover
+background-size: contain
+
+# <span style="color:black">Tooltips</span>
 
 ---
 
-# Tooltips
+# Tooltips...
 
 - Buen recurso para no saturar de información un gráfico con información
 - Permite dar detalle que el _usuario_ decide ver
@@ -682,7 +696,7 @@ hc %>% hc_tooltip(split = TRUE)
 
 ---
 
-# Y quizàs, tal vez con
+# Y quizás, tal vez con
 
 ```{r}
 hc %>% hc_tooltip(table = TRUE, sort = TRUE)
@@ -712,7 +726,8 @@ x <- str_replace_all(x, "_", " ")
 tt <- tooltip_table(x, y)
 
 hcpaises <- hcpaises %>% 
-  hc_tooltip(pointFormat = tt, useHTML = TRUE, headerFormat = "")
+  hc_tooltip(pointFormat = tt, useHTML = TRUE, headerFormat = "") %>% 
+  hc_plotOptions(series = list(maxSize = 30)) 
 
 hcpaises
 ```
@@ -753,18 +768,15 @@ hcpaises3
 # Otros ejemplos
 
 
-- http://jkunst.com/slides/201906-Highcharter-en-30-minutos-o-menos-o-m%C3%A1s/index.html#/section-1
-
-- http://jkunst.com/blog/posts/2019-02-04-using-tooltips-in-unexpected-ways/
-
-- http://jkunst.com/blog/posts/2017-03-03-giving-a-thematic-touch-to-your-interactive-chart
-
-- http://jkunst.com/flexdashboard-highcharter-examples/pokemon/
+- Meetup cl http://jkunst.com/slides/201906-Highcharter-en-30-minutos-o-menos-o-m%C3%A1s/index.html#/section-1
+- Introducción a `tooltip_chart` http://jkunst.com/blog/posts/2019-02-04-using-tooltips-in-unexpected-ways/
+- Estilo http://jkunst.com/blog/posts/2017-03-03-giving-a-thematic-touch-to-your-interactive-chart
+- Tooltips + marker shttp://jkunst.com/blog/posts/2016-03-08-pokemon-vizem-all/
 
 
 ---
 
-# Toooltips!
+# Toooooltips!
 
 .font150[
 <br>
@@ -773,11 +785,110 @@ Revisemos el archivo `R/06-tooltip.R`
 ]
 
 
+---
+
+class: clear, bottom, left
+background-image: url("img/maps.jpg")
+background-size: cover
+
+# Mapas
+
+---
+
+# Mapas
+
+- A veces se usan (cierto?), y que mejor que tener todos los gráficos con 
+el mismo _sabor_, estilo.
+- Podemos usar geojson, shapes y la gracia que la sitaxis para opciones es la misma
+- Para comenzar la función `hcmap` es últi para comenzar usar mapas de una colleción 
+ya existente http://code.highcharts.com/mapdata/
+- Referencias: https://www.highcharts.com/maps/demo,  http://jkunst.com/highcharter/highmaps.html,
+https://onsocialtrends.org/politics/political_history.html (Gracias a Uma Huggins)
+
+---
+
+# hcmap
+
+```{r}
+hcmap("custom/world-robinson-lowres")
+```
 
 
 ---
 
-# Créditos 
+# Vamos a realizar mapas más entretenidos!
+
+.font150[
+<br>
+
+Revisemos el archivo `R/07-maps.R`
+]
+
+
+---
+
+class: clear, bottom, left
+background-image: url("img/shiny.jpg")
+background-size: cover
+
+# Shiny
+
+---
+
+# shiny & highcharter <3
+
+- `highcharter` es un htmlwidget, por lo que es _shiny-ready_
+- Y con la flexibilidad de `shiny` y `highcharter` puedes hacer lo 
+que te de la gana
+- Ejemplos: https://centre.humdata.org/fighting-rumors-to-fight-ebola/, http://www.piaschile.cl/mercado/benchmarking-internacional/,
+https://shiny.tradestatistics.io/dashboard/
+- El gráfico no solo se puede _ver_ (output) también, con conocimiento suficiente, poder usarlo como input
+
+---
+
+# Revisemos un ejemplo simple
+
+.font150[
+<br>
+
+Pero no por eso FOME!
+
+Revisemos el archivo `R/07-maps.R`
+]
+
+---
+
+class: clear, middle, right
+background-image: url("img/html.png")
+background-size: cover
+
+# <span style="background-color:#202020">htmlwidgets</span>
+
+---
+
+# Esto no termina aquí
+
+(a menos que no te haya gustado la _interactivdad_)
+
+Highcharter es solo uno de muchos otros paquetes (http://gallery.htmlwidgets.org/) para aceder a las
+bondades ~~y dolores de cabeza~~ de html/javascript. Existe muchas librerías
+javascripts. Ploty es muy conocido pero existen muy muy buenas otras opciones:
+
+- [echarts4r](https://echarts4r.john-coene.com/) de [John (JP) Coene](https://twitter.com/jdatap),
+- [aperxcharter](https://dreamrs.github.io/apexcharter/articles/starting-with-apexcharts.html) y [billboarder](https://dreamrs.github.io/billboarder/articles/billboarder.html) de [Victor Perrier](https://twitter.com/_pvictorr)
+
+John y Victor tienen más paquetes tanto para visualización como shiny
+
+Como cada librería JS tiene su propia sintaxis el paquete R se desarrolla en función de dicha forma,
+pero muy son similares en cuanto a uso
+
+---
+
+# Créditos y gracias totales
+
+## Personas importantes!
+
+Patricia, Elio, Ignacio, Riva! La comunidad y desarrolladores (desde R a JS)
 
 ## Logo
 

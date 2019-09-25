@@ -143,12 +143,12 @@ iris
 # 
 
 # 
-# 3. Usando los ejemplos, use el tipo "pie"
+# 3. Usando los ejemplo de "millasc" use el tipo "pie"
 # 
 
 
 # 
-# 4. Usando los ejemplos, use el tipo "treemap". La diferencia es que en lugar
+# 4. Usando los ejemplo de "millasc" use el tipo "treemap". La diferencia es que en lugar
 #    de "y" se deb usar "value"
 # 
 
@@ -160,4 +160,5 @@ iris
 #     entre pib per capita y la esperanza de vida. Ademàs considere el tamaño del punto
 #     como la poblaciòn del pais, y agrupe por contiente
 #   - Comenta que observas
+#   - ¿Qué podemos mejorar del gráfico?
 

@@ -154,3 +154,10 @@ hcpaises3 %>%
   hc_yAxis(labels = list(format = "${value}"))
 
 
+# Ejercicios --------------------------------------------------------------
+# 
+# 1. La verdad no hay ejercicios. Quizás comentar ideas de donde esta funcionalidad
+#    puede ser utilizada (aparte de este tipo de información id/tiempo: pais/año)
+# 
+
+

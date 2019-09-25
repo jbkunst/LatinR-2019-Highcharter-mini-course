@@ -4,9 +4,10 @@
 # Opción 1: Click en "Session", luego click en "Restart R"
 # Opción 2: CTRL + SHIFT + F10 (apretar control, shift y f10)
 # 
-# Paquetes ----------------------------------------------------------------library(highcharter)
+# Paquetes ----------------------------------------------------------------
 library(tidyverse)
-library(readxl)
+library(highcharter)
+
 
 # Exemplo motivacional ----------------------------------------------------
 # 
@@ -24,57 +25,44 @@ library(readxl)
 # example 1 ---------------------------------------------------------------
 hcmap("countries/br/br-all")
 
-hcmap("countries/br/br-all", showInLegend = FALSE)
+hcmap("countries/cl/cl-all")
+
+hcmap("countries/ar/ar-all")
+
+hcmap("countries/pe/pe-all", showInLegend = FALSE)
 
 
 # example 2 ---------------------------------------------------------------
-example_data <- get_data_from_map(download_map_data("countries/br/br-all"))
+example_data <- get_data_from_map(download_map_data("countries/cl/cl-all"))
 
 example_data 
 
+# se deja hc-a2 pues es la llave que une la informacion con el mapa
 example_data <- example_data %>% 
-  select(`hc-a2`, `woe-name`, name)
+  select(`hc-a2`, `woe-name`, name) %>% 
+  mutate(medida = 100 * runif(n()))
 
 example_data
 
-brdata <- read_xlsx("data/BasesEstados.xlsx") 
+hcmap("countries/cl/cl-all", data = example_data, value = "medida",
+      name = "Importante valor", dataLabels = list(enabled = TRUE, format = '{point.name}'))
 
-brdata 
+mapa <- hcmap(
+  "countries/cl/cl-all",
+  data = example_data, 
+  value = "medida", # nombre de la columna numerica!! a mostrar
+  name = "Importante valor"
+  ) %>% 
+  hc_tooltip(valueDecimals = 2, valuePrefix = "$", valueSuffix = "MM")
 
-brdata <- brdata %>% 
-  select(S, Taxa_analfabetismo)
- 
-brdata <- left_join(brdata, example_data, by = c("S" = "hc-a2"))
-brdata
-
-hcmap("countries/br/br-all", data = brdata, value = "Taxa_analfabetismo", name = "Taxa Analfabetismo")
-
-hcmap(
-  "countries/br/br-all",
-  data = brdata,
-  value = "Taxa_analfabetismo",
-  name = "Taxa Analfabetismo",
-  dataLabels = list(enabled = TRUE, format = '{point.name}')
-  )
-
-brmap <- hcmap(
-  "countries/br/br-all",
-  data = brdata,
-  value = "Taxa_analfabetismo",
-  name = "Taxa Analfabetismo",
-  dataLabels = list(enabled = TRUE, format = '{point.name}'),
-  borderColor = "transparent"
-)
-
-brmap
-
-brmap %>% 
+mapa <- mapa %>% 
   hc_colorAxis(minColor = "white", maxColor = "red")
 
+mapa
 
-brmap <- brmap %>%
+mapa <- mapa %>%
   hc_colorAxis(
-    dataClasses = color_classes(c(0, 5, 10, 15, 30, 60))
+    dataClasses = color_classes(0:5*20)
     ) %>% 
   hc_legend(
     layout = "vertical", 
@@ -84,7 +72,7 @@ brmap <- brmap %>%
     valueSuffix = "%"
     ) 
 
-brmap
+mapa
 
 
 
@@ -105,11 +93,25 @@ hcmap("countries/br/br-all", showInLegend = FALSE) %>%
     tooltip = list(pointFormat = "{point.nombre}")
     ) 
 
+
+example_data2 <- get_data_from_map(download_map_data("countries/br/br-all"))
+example_data2
+example_data2 <- example_data2 %>% 
+  select(`hc-a2`, `woe-name`, name) %>% 
+  mutate(medida = 100 * runif(n()))
+
+example_data2
+
+brmap <- hcmap("countries/br/br-all", data = example_data2, value = "medida",
+      name = "Importante valor", dataLabels = list(enabled = TRUE, format = '{point.name}'))
+
+brmap
+
 brmap2 <- brmap %>% 
   hc_add_series(
     data = airports,
     type = "mappoint",
-    color = "skyblue",
+    color = "red",
     name = "Airports",
     tooltip = list(pointFormat = "{point.nombre}")
   )
@@ -128,13 +130,13 @@ brmap2 %>%
 
 # Exercícios --------------------------------------------------------------
 # 
-# RECAP!!!
-# 
 # Do messmo para America del Sur:
 # 
-# 1. See Ameria del Sur "demo" in https://code.highcharts.com/mapdata/ ("custom/south-america")
-# 2. Agregue datos ficticios
-# 3. Agregue titulo, subtitulo, legenda
-# 4. Agregue nueva paleta de colores minColor, maxColor 
-# 5. Add a "hc_theme_db" theme
+# 1. See Ameria del Sur "demo" in https://code.highcharts.com/mapdata/ ("custom/south-america"):
+#    - Agregue datos ficticios
+#    - Agregue titulo, subtitulo, legenda
+#    - Agregue nueva paleta de colores minColor, maxColor 
+#    - Add a "hc_theme_db" theme
+# 
+# 2. A "mapa", el mapa de chile ya creadi, agregar los aeropuertos :D, para que? No sé, para hacerlo :D
 # 

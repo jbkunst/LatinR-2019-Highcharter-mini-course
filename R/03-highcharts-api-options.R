@@ -110,3 +110,15 @@ hchart(df, "area", hcaes(year, n)) %>%
 # 
 # https://api.highcharts.com/highcharts/
 # 
+
+
+# ALguien dijo ayuda? -----------------------------------------------------
+?hc_legend
+
+# - Siempre ? tendrá un ejemplo (espero!)
+# - Siempre se ayudará de la docuemntación de la api en highcharts http://api.highcharts.com/highcharts#legend.
+#   pues "basicamente" highcharter envia parámetros desde R al mundo javascript
+# 
+
+
+

@@ -76,5 +76,5 @@ hchart(volcano)
 
 # 
 # 2. Obter uma matriz de correlacions con los datos "mtcars"
-#    usando la función "cor", luego use hchart
+#    usando la función "cor", luego use hchart. Luego interpretar!
 # 
